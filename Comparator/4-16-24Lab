@@ -1,0 +1,61 @@
+import java.util.Comparator;
+
+public class Person implements Comparator<Person>
+{
+	private String name;
+	private int id;
+	
+	public Person(String name, int id)
+	{
+		this.id = id;
+		this.name = name;
+	}
+	public String getName()
+	{
+		return this.name;
+		
+	}
+	public int getID()
+	{
+		return this.id;
+	}
+	public String toString()
+	{
+		return this.name+" "+this.id;
+	}
+	@Override
+	public int compare(Person o1, Person o2)
+	{
+		if(o1.id<o2.id)		return -1;
+		else if(o1.id>o2.id)return 1;
+		else				return 0;
+	}
+	
+	public static final Comparator<Person>SORT_NAME_ID = Comparator.comparing(Person::getName).thenComparing(Person::getID);
+
+}
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class test 
+{
+
+	public static void main(String[] args) 
+	{
+		Person p = new Person("Zuko", 123);
+		Person p2 = new Person("Aang", 456);
+		Person p3 = new Person("Bog",776 );
+		Person p4 = new Person("Bog", 41);
+		
+		List<Person>people = new ArrayList<>();
+		people.add(p);
+		people.add(p2);
+		people.add(p3);
+		people.add(p4);
+		System.out.println(people);
+		Collections.sort(people,Person.SORT_NAME_ID);
+		System.out.println(people);
+	}
+
+}
